@@ -1,0 +1,30 @@
+generated: '2026-07-20'
+method: searched
+source: https://status.replicant.ai/
+notes: >-
+  Replicant is a sales-led enterprise platform with a private, partner-facing API rather
+  than a public developer portal, so versioning and deprecation policy are not publicly
+  published. A public multi-region status page is operated and lists a "Replicant API"
+  component, confirming an API surface behind the platform.
+versioning:
+  scheme: unknown
+  current: null
+  docs: null
+deprecation:
+  policy_url: null
+  sunset_header: null
+sla:
+  url: https://status.replicant.ai/
+  uptime_target: null
+status_page: https://status.replicant.ai/
+status_provider: status.io
+status_components:
+- Replicant Inbound AI Agents
+- Replicant Outbound AI Agents
+- Replicant Conversation Intelligence
+- Replicant Dashboard and Application
+- Replicant API
+status_regions:
+- US
+- EU
+deprecated_operations: []

@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.replicant.com/safety-ai-security
+notes: >-
+  Replicant publishes no public OpenAPI, so protocol/interface conformance (OAuth2, OIDC,
+  RFC 9457, pagination) cannot be asserted from a spec. The claims below are the compliance
+  and security standards the provider publicly states on its Safety & AI Security page and
+  llms.txt.
+standards:
+- id: soc2-type2
+  conforms: true
+  evidence: SOC 2 Type 2 stated on safety-ai-security page and llms.txt
+- id: pci-dss
+  conforms: true
+  evidence: PCI DSS (where applicable) stated on safety-ai-security page and llms.txt
+- id: hipaa
+  conforms: true
+  evidence: HIPAA stated on safety-ai-security page and llms.txt
+- id: gdpr
+  conforms: true
+  evidence: GDPR privacy-by-design alignment stated on safety-ai-security page
+- id: iso-27001
+  conforms: false
+  evidence: not claimed
+- id: fedramp
+  conforms: false
+  evidence: not claimed

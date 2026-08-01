@@ -1,8 +1,27 @@
 aid: replicant
 name: Replicant
-description: Replicant is a company surfaced as a portfolio company of bloomberg-beta, norwest-venture-partners
-  and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the
-  enrichment pipeline.
+description: >-
+  Replicant is an enterprise agentic customer service platform that automates high-volume
+  contact center conversations across voice, chat, and messaging, and analyzes 100% of
+  interactions for QA, compliance, and automation insights. Its two products — Conversation
+  Automation and Conversation Intelligence — replicate top-performing human agents using a
+  hybrid agentic-plus-deterministic architecture with human-in-the-loop escalation, and
+  integrate with existing CCaaS, CRM, telephony, and ticketing stacks. Replicant is
+  telephony-native, runs multi-region on Google Cloud, and is built for SOC 2, HIPAA, PCI,
+  and GDPR requirements. It is sales-led with a private, partner-facing API rather than a
+  public developer portal.
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/67977c1e48dbb17d41f9520b/67a0beb2e1e43c91319354bb_Featured-Image.png
 url: https://raw.githubusercontent.com/api-evangelist/replicant/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,9 +32,16 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
+- Contact Center
+- Conversational AI
+- Customer Service
+- Voice AI
+- Contact Center Automation
+- Agentic AI
+- Conversation Intelligence
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -24,4 +50,35 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: http://www.replicant.ai/
+  url: https://www.replicant.com/
+- type: Blog
+  url: https://www.replicant.com/blog
+- type: StatusPage
+  url: https://status.replicant.ai/
+- type: TermsOfService
+  url: https://www.replicant.com/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.replicant.com/legal/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/replicant-ai
+- type: LLMsTxt
+  url: llms/replicant-llms.txt
+- type: Lifecycle
+  url: lifecycle/replicant-lifecycle.yml
+- type: Security
+  url: security/replicant-vulnerability-disclosure.yml
+- type: VulnerabilityDisclosure
+  url: security/replicant-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/replicant-trust-center.yml
+- type: Compliance
+  url: https://www.replicant.com/safety-ai-security
+- type: Conformance
+  url: conformance/replicant-conformance.yml
+- type: DomainSecurity
+  url: security/replicant-domain-security.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 7
+  pass: local-v1

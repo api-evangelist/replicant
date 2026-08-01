@@ -1,0 +1,18 @@
+generated: '2026-07-20'
+method: searched
+host: https://www.replicant.com
+notes: >-
+  No /.well-known/ discovery documents are published on the primary host. Every probed
+  path returned 404. A real /llms.txt (not a /.well-known/ path) IS published and is saved
+  verbatim at llms/replicant-llms.txt.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404

@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+probe: true
+url: https://www.replicant.com/safety-ai-security
+certifications:
+- SOC 2 Type 2
+- PCI DSS
+- HIPAA
+- GDPR
+controls:
+- TLS 1.2+ in transit, AES-256 at rest
+- Automatic redaction of PII, payment, and regulated content in transcripts and logs
+- Role-Based Access Control (RBAC) with Multi-Factor Authentication (MFA)
+- Full audit trails for data-access transparency
+- Intrusion Detection & Prevention Systems (IDPS) with continuous threat monitoring
+- Infrastructure hosted on Google Cloud Platform (GCP)
+- Privacy-by-design architecture aligned to GDPR
+evidence:
+- source: https://www.replicant.com/safety-ai-security
+  keywords: [soc 2 type 2, pci dss, hipaa, gdpr, aes-256, rbac, audit trails]
+notes: >-
+  No dedicated trust.replicant.com subdomain exists; the Safety & AI Security page is the
+  provider's public trust/compliance posture. ISO 27001 and FedRAMP were not claimed.
