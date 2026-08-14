@@ -8,8 +8,11 @@ description: >-
   hybrid agentic-plus-deterministic architecture with human-in-the-loop escalation, and
   integrate with existing CCaaS, CRM, telephony, and ticketing stacks. Replicant is
   telephony-native, runs multi-region on Google Cloud, and is built for SOC 2, HIPAA, PCI,
-  and GDPR requirements. It is sales-led with a private, partner-facing API rather than a
-  public developer portal.
+  and GDPR requirements. It is sales-led with no public developer portal, but it does publish
+  one machine-readable contract — the Replicant Outbound API (OpenAPI 3.0.0, v2.0.1), served
+  from the provider's own Swagger UI at docs.replicant.ai and live on api.replicant.ai — which
+  places outbound AI voice calls and SMS against a configured campaign and notifies the caller
+  of call status.
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -32,7 +35,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-14'
 tags:
 - Company
 - Contact Center
@@ -42,13 +45,45 @@ tags:
 - Contact Center Automation
 - Agentic AI
 - Conversation Intelligence
-apis: []
+apis:
+- name: Replicant Outbound API
+  description: >-
+    Places outbound AI voice calls and SMS messages through Replicant against a pre-configured
+    campaign, and notifies the caller of call status. Two POST operations — placeCall and
+    sendSMS — each taking an E.164 phone number plus a free-form data object that becomes the
+    context handed to the Replicant AI agent for the conversation, and each returning an
+    identifier (callId / messageId) the outcome is correlated on. Authentication is a JWT bearer
+    token; campaigns are provisioned outside the API. OpenAPI 3.0.0, version 2.0.1, published by
+    Replicant at docs.replicant.ai and verified live on api.replicant.ai on 2026-08-14.
+  humanURL: https://docs.replicant.ai/campaigns/
+  baseURL: https://api.replicant.ai/api/v2
+  tags:
+  - outbound-calling
+  - voice
+  - sms
+  - contact-center
+  - conversational-ai
+  - telephony
+  - campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/replicant-outbound-api-openapi.yml
+  - type: APIReference
+    url: https://docs.replicant.ai/campaigns/
+  - type: Documentation
+    url: https://docs.replicant.ai/campaigns/
+  - type: Webhooks
+    url: asyncapi/replicant-outbound-call-status-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/replicant-agentic-access.yml
+- type: Authentication
+  url: authentication/replicant-authentication.yml
 - type: Website
   url: https://www.replicant.com/
 - type: Blog
@@ -77,8 +112,30 @@ common:
   url: conformance/replicant-conformance.yml
 - type: DomainSecurity
   url: security/replicant-domain-security.yml
+- type: OpenAPI
+  url: openapi/replicant-outbound-api-openapi.yml
+- type: Overlay
+  url: overlays/replicant-outbound-api-overlay.yaml
+- type: Conventions
+  url: conventions/replicant-conventions.yml
+- type: ErrorCatalog
+  url: errors/replicant-problem-types.yml
+- type: DataModel
+  url: data-model/replicant-data-model.yml
+- type: Webhooks
+  url: asyncapi/replicant-outbound-call-status-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Plans
+  url: plans/replicant-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/replicant-rate-limits.yml
+- type: Pricing
+  url: https://www.replicant.com/contact-center-automation/pricing
+- type: Support
+  url: https://www.replicant.com/contact
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-14'
   status: enriched
-  artifacts_added: 7
+  artifacts_added: 16
   pass: local-v1
