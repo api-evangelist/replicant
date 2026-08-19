@@ -1,0 +1,44 @@
+generated: '2026-08-14'
+method: searched
+source: registry searches (npm, PyPI, RubyGems, crates.io, NuGet, Maven Central, pkg.go.dev) + https://github.com/replicant-ai
+package_count: 0
+official_package_count: 0
+notes: >-
+  Replicant ships NO first-party client libraries. The npm registry search for "replicant"
+  returns only unrelated projects (NodeCG replicants, an Android MCP server, a Clojure renderer,
+  a Playpass wrapper); there is no @replicant / @replicant-ai scope. The replicant-ai GitHub
+  organization has 9 public repositories — interview exercises, a Deepgram self-hosting resource
+  fork, a SignalWire node fork, and a zoekt fork — and none of them is a Replicant SDK. No SDK,
+  CLI, or SourceCode link appears anywhere in apis.yml, the llms.txt, or the marketing site.
+  This is an honest zero, recorded so a later run knows the registries were checked rather than
+  skipped. NO SDKs pointer is emitted, because there is no SDK.
+packages: []
+searched_registries:
+- {registry: npm, url: 'https://registry.npmjs.org/-/v1/search?text=replicant', status: 200, first_party_hits: 0}
+- {registry: github, url: 'https://api.github.com/orgs/replicant-ai/repos', status: 200, first_party_sdk_repos: 0}
+- registry: pypi
+  url: https://pypi.org/pypi/replicant/json
+  status: 200
+  first_party_hits: 0
+  note: >-
+    `replicant` 1.0.0.dev0 belongs to Edwin Shin (github.com/pypa/replicant) and `replicant-ai`
+    0.1.1 to Oorjit Chowdhary (github.com/oorjitchowdhary/replicant). Neither is Replicant Inc.
+- registry: rubygems
+  url: https://rubygems.org/api/v1/gems/replicant.json
+  status: 200
+  first_party_hits: 0
+  note: >-
+    `replicant` 0.0.3, published 2011-10-03 by github.com/jamesbobowski — a Rack HTTP mocking
+    gem, unrelated.
+- registry: crates.io
+  url: https://crates.io/api/v1/crates/replicant
+  status: 200
+  first_party_hits: 0
+  note: '`replicant` 0.0.0, github.com/tatupesonen/replicant — a data-replication crate, unrelated.'
+- registry: nuget
+  url: https://api.nuget.org/v3/registration5-semver1/replicant/index.json
+  status: 200
+  first_party_hits: 0
+  note: one unrelated package registered under the name
+- {registry: maven-central, first_party_hits: 0, note: no Replicant Inc. artifact found}
+- {registry: pkg.go.dev, first_party_hits: 0, note: no Replicant Inc. module found}

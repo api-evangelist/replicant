@@ -1,0 +1,68 @@
+generated: '2026-08-14'
+method: searched
+source: https://www.replicant.com/contact-center-automation/pricing
+plan_count: 3
+prices_published: false
+currency: null
+billing_period: null
+notes: >-
+  Replicant publishes three named tiers with their feature/limit boundaries, but NO prices,
+  currencies, or billing periods — the page is headed "Flexible pricing for scalable
+  conversational AI" and routes every tier to "request pricing". There is no self-serve signup
+  and no usage-based rate card. Only the limits the page states verbatim are recorded below;
+  price fields are null because nothing was published, not because nothing was checked.
+
+plans:
+- name: Quick Start
+  price: null
+  currency: null
+  period: null
+  cta: request pricing
+  positioning: Rapidly prove the ROI of Conversational AI
+  includes:
+  - GenAI Answers
+  - CCaaS integration
+  - LLM-based NLU
+  - Premium transcription, voices, and analytics
+  limits:
+    concurrent_calls: 10
+    external_system_integrations: 0
+
+- name: Professional
+  price: null
+  currency: null
+  period: null
+  cta: request pricing
+  positioning: Maximize resolution for the most common conversation flows
+  includes:
+  - Everything in Quick Start
+  - Flexforms
+  limits:
+    concurrent_calls: unlimited
+    external_system_integrations: 2
+
+- name: Enterprise
+  price: null
+  currency: null
+  period: null
+  cta: request pricing
+  positioning: Fully customized for your enterprise needs
+  includes:
+  - Everything in Professional
+  - A/B testing
+  - PCI / HIPAA compliance
+  - Named delivery resources
+  - Continuous workflow updates
+  limits:
+    concurrent_calls: unlimited
+    external_system_integrations: unlimited
+
+guarantee:
+  name: Money-back guarantee
+  url: https://www.replicant.com/contact-center-automation/money-back-guarantee
+  terms_published: >-
+    "refund your implementation and platform fees if we don't meet your expectations"
+
+related:
+- {label: Request pricing, url: 'https://www.replicant.com/request-pricing'}
+- {label: ROI calculator, url: 'https://www.replicant.com/contact-center-automation/roi-calculator'}

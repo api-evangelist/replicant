@@ -1,0 +1,61 @@
+generated: '2026-08-14'
+method: derived
+source: openapi/_original/replicant-outbound-api-openapi.json
+format: bare-string-declared/json-object-observed
+rfc9457: false
+envelope:
+  declared:
+    media_type: text/plain
+    shape: bare string body
+  observed:
+    media_type: application/json
+    shape: '{"error": "<message>"}'
+    field: error
+    evidence:
+      url: https://api.replicant.ai/api/v2/campaigns/test/calls
+      method: POST
+      http_status: 400
+      body: '{"error":"Invalid campaign UUID"}'
+      fetched: '2026-08-14'
+notes: >-
+  Derived from the 4xx responses declared in the Replicant Outbound API OpenAPI, plus one live
+  unauthenticated probe of the production host. Replicant publishes no separate error-code
+  reference page, so there are no remediation notes beyond the descriptions in the spec. The
+  live envelope does not match the declared one — see `envelope` above.
+
+problems:
+- status: 400
+  title: campaignId not valid
+  declared_media_type: text/plain
+  declared_example: campaignId not valid
+  observed_message: Invalid campaign UUID
+  remediation: >-
+    Supply a valid campaign UUID in the path. The production host validates the UUID shape
+    before authenticating, so a malformed campaignId returns 400 even without a bearer token.
+  source_operations:
+  - openapi/replicant-outbound-api-openapi.yml#placeCall
+  - openapi/replicant-outbound-api-openapi.yml#sendSMS
+- status: 401
+  title: authentication failure
+  declared_media_type: text/plain
+  declared_example: authentication failure
+  remediation: Present a valid JWT bearer token in the Authorization header.
+  source_operations:
+  - openapi/replicant-outbound-api-openapi.yml#placeCall
+  - openapi/replicant-outbound-api-openapi.yml#sendSMS
+- status: 403
+  title: not authorized to make this request
+  declared_media_type: text/plain
+  declared_example: not authorized to make this request
+  remediation: >-
+    The token authenticated but is not entitled to the campaign. Confirm the campaign belongs
+    to the authenticated tenant.
+  source_operations:
+  - openapi/replicant-outbound-api-openapi.yml#placeCall
+  - openapi/replicant-outbound-api-openapi.yml#sendSMS
+
+gaps:
+- No 404 response is declared on either operation.
+- No 429 response is declared; rate-limit behaviour is undocumented.
+- No 5xx responses are declared.
+- No machine-readable error code (only a human-readable string) is returned.

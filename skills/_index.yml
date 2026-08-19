@@ -1,0 +1,24 @@
+generated: '2026-08-14'
+method: generated
+source: openapi/_original/replicant-outbound-api-openapi.json
+notes: >-
+  Two skills, one per operation published in the Replicant Outbound API. Every operationId
+  referenced below exists verbatim in openapi/replicant-outbound-api-openapi.yml. Replicant
+  publishes no AGENTS.md or first-party skill files; these are generated from the spec plus the
+  conventions/errors artifacts in this repo.
+skills:
+- file: replicant-place-outbound-call.md
+  name: Place an outbound Replicant call
+  description: >-
+    Trigger a Replicant AI voice agent to call a phone number using a configured campaign and
+    correlate the outcome from the call-status notification.
+  api: openapi/replicant-outbound-api-openapi.yml
+  operations: [placeCall]
+  consequence: physical
+- file: replicant-send-outbound-sms.md
+  name: Send an outbound Replicant SMS
+  description: >-
+    Send an SMS message to a phone number through a configured Replicant campaign.
+  api: openapi/replicant-outbound-api-openapi.yml
+  operations: [sendSMS]
+  consequence: physical

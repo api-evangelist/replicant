@@ -1,21 +1,31 @@
-generated: '2026-07-20'
+generated: '2026-08-14'
 method: searched
 source: https://status.replicant.ai/
 notes: >-
-  Replicant is a sales-led enterprise platform with a private, partner-facing API rather
-  than a public developer portal, so versioning and deprecation policy are not publicly
-  published. A public multi-region status page is operated and lists a "Replicant API"
-  component, confirming an API surface behind the platform.
+  Replicant is a sales-led enterprise platform with no public developer portal, so no versioning
+  policy, deprecation policy, SLA target, or changelog is published. What IS published: a
+  multi-region status page that lists a "Replicant API" component, and one machine-readable
+  contract — the Replicant Outbound API — whose URI path and info.version give a real, if
+  undocumented, versioning scheme. The versioning block below is derived from that spec; the
+  policy fields remain null because the provider publishes no policy, which is a finding rather
+  than a gap in this pass.
 versioning:
-  scheme: unknown
-  current: null
+  scheme: uri-path
+  current: v2
+  spec_version: 2.0.1
+  base: https://api.replicant.ai/api/v2
+  source: openapi/_original/replicant-outbound-api-openapi.json
   docs: null
+  policy_published: false
 deprecation:
   policy_url: null
   sunset_header: null
+  policy_published: false
+  deprecated_in_spec: 0
 sla:
   url: https://status.replicant.ai/
   uptime_target: null
+  published: false
 status_page: https://status.replicant.ai/
 status_provider: status.io
 status_components:
@@ -27,4 +37,24 @@ status_components:
 status_regions:
 - US
 - EU
+status_api:
+  published: false
+  probed:
+  - {url: 'https://status.replicant.ai/api/v2/status.json', status: 404}
+  - {url: 'https://status.replicant.ai/api/v2/summary.json', status: 404}
+  - {url: 'https://status.replicant.ai/1.0/status', status: 404}
+changelog:
+  url: null
+  published: false
+  note: >-
+    No dated changelog or release-notes page exists on any Replicant host; the harvested spec
+    itself is the only version marker, last modified 2024-07-08 in the provider's own bucket.
+spec_currency:
+  file: openapi/_original/replicant-outbound-api-openapi.json
+  provider_last_modified: '2024-07-08'
+  source: GCS object metadata on https://storage.googleapis.com/docs.replicant.ai/
+  note: >-
+    The published contract has not changed since July 2024, while the surrounding Swagger UI
+    assets date to February 2021. Recorded as decay evidence, not as an assertion that the API
+    itself is stale — the production host answered live on 2026-08-14.
 deprecated_operations: []

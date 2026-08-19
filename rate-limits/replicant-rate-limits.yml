@@ -1,0 +1,46 @@
+generated: '2026-08-14'
+method: probed
+source: https://api.replicant.ai/api/v2/campaigns/{campaignId}/calls
+limit_count: 0
+headers_observed: []
+notes: >-
+  Replicant publishes NO rate limits. The Replicant Outbound API OpenAPI declares no 429
+  response and no rate-limit headers; there is no public developer portal or API reference page
+  to document them; and a live unauthenticated request to the production host returned no
+  RateLimit-*, X-RateLimit-*, or Retry-After header of any kind. An honest zero: the limits may
+  well exist and be communicated to customers contractually, but nothing is published that an
+  agent could read at runtime. The only published capacity boundary Replicant states anywhere is
+  a PLAN limit, not an API rate limit — 10 concurrent calls on Quick Start, unlimited on
+  Professional and Enterprise (see plans/replicant-plans-pricing.yml).
+
+limits: []
+
+runtime_signal:
+  exhaustion_status: null
+  retry_after: false
+  ratelimit_headers: false
+  documented: false
+
+evidence:
+- url: https://api.replicant.ai/api/v2/campaigns/test/calls
+  method: POST
+  http_status: 400
+  fetched: '2026-08-14'
+  response_headers:
+  - date
+  - content-type
+  - content-length
+  - etag
+  - x-powered-by
+  - strict-transport-security
+  - alt-svc
+  - via
+  finding: no rate-limit header present
+- url: https://docs.replicant.ai/campaigns/replicant-outbound-api-replicant.json
+  http_status: 200
+  finding: no 429 response and no rate-limit header declared on either operation
+
+related_capacity_limits:
+- {source: plans/replicant-plans-pricing.yml, plan: Quick Start, concurrent_calls: 10}
+- {source: plans/replicant-plans-pricing.yml, plan: Professional, concurrent_calls: unlimited}
+- {source: plans/replicant-plans-pricing.yml, plan: Enterprise, concurrent_calls: unlimited}

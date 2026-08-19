@@ -1,0 +1,55 @@
+generated: '2026-08-14'
+method: derived
+source: openapi/_original/replicant-outbound-api-openapi.json
+spec_type: null
+asyncapi_published: false
+notes: >-
+  Replicant publishes no AsyncAPI document. It DOES advertise an event/notification surface in
+  its own OpenAPI: info.description states the Replicant Outbound API "Allows placing outbound
+  calls through Replicant, and being notified of call status", and the spec ships a CallStatus
+  payload schema that is referenced by no path — i.e. the callback body. That is the entirety of
+  the published event surface. The subscription mechanism (where the callback URL is configured,
+  the HTTP method, retry/signing behaviour) is NOT publicly documented; campaigns are configured
+  outside the public API surface, so a customer presumably registers the callback during campaign
+  setup. Nothing below is invented — every field is taken verbatim from the spec.
+
+surface:
+  style: http-callback
+  direction: provider-to-subscriber
+  transport: unknown
+  configuration: not publicly documented
+  security: not publicly documented
+  signing: not publicly documented
+  retry_policy: not publicly documented
+
+events:
+- name: call.status
+  title: Outbound call status notification
+  evidence: >-
+    openapi info.description "being notified of call status" +
+    components.schemas.CallStatus (defined, referenced by no path)
+  payload_schema: openapi/_original/replicant-outbound-api-openapi.json#/components/schemas/CallStatus
+  payload_fields:
+  - {name: callId, type: string, format: uuid}
+  - {name: campaignId, type: string}
+  - {name: phone, type: string, format: phone}
+  - {name: callerId, type: string, format: phone}
+  - {name: status, type: string, example: gathering data}
+  - {name: callCompleted, type: boolean}
+  - {name: callFailed, type: boolean}
+  - {name: callStartedAt, type: string, format: date-time}
+  - {name: callDuration, type: number, example: 221}
+  - {name: callSuccessAt, type: string, format: date-time}
+  - {name: callResults, type: object, note: free-form data collected during the conversation}
+  terminal_signals:
+  - callCompleted
+  - callFailed
+  note: >-
+    `status` is a free-form string in the spec (only example given is "gathering data"); no
+    enumeration of the status vocabulary is published.
+
+gaps:
+- No AsyncAPI 2.x/3.x document is published.
+- No SMS-delivery notification schema is published (only CallStatus, which is voice-shaped).
+- No callback URL registration operation exists in the public API.
+- No event catalog, no signature verification scheme, no delivery guarantees documented.

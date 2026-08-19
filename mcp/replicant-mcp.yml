@@ -1,0 +1,53 @@
+generated: '2026-08-14'
+method: derived
+status: candidate
+source: openapi/_original/replicant-outbound-api-openapi.json
+notes: >-
+  Replicant ships NO MCP server. Searched the provider site, its llms.txt, the replicant-ai
+  GitHub organization (9 public repos, none MCP-related), and the npm registry (no first-party
+  @replicant package; every "replicant" hit belongs to unrelated projects). Probed
+  https://api.replicant.ai/mcp -> 404 on 2026-08-14. The tools below are a DERIVED candidate
+  mapping of the two published REST operations, not anything the provider offers.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+server:
+  name: replicant
+  transport: null
+  url: null
+tools:
+- name: place_outbound_call
+  description: >-
+    Place an outbound voice call to a phone number using the settings of a configured Replicant
+    campaign, handing the AI agent free-form call context.
+  source_operation: openapi/replicant-outbound-api-openapi.yml#placeCall
+  method: POST
+  path: /campaigns/{campaignId}/calls
+  inputs:
+    campaignId: {in: path, type: string, required: true}
+    phone: {in: body, type: string, format: phone, required: true}
+    callData: {in: body, type: object, required: true}
+  returns: OutboundCallResult (callId)
+  consequence: physical — initiates a real phone call to a real person
+- name: send_outbound_sms
+  description: >-
+    Send an outbound SMS message to a phone number using the settings of a configured Replicant
+    campaign.
+  source_operation: openapi/replicant-outbound-api-openapi.yml#sendSMS
+  method: POST
+  path: /campaigns/{campaignId}/sms
+  inputs:
+    campaignId: {in: path, type: string, required: true}
+    phone: {in: body, type: string, format: phone, required: true}
+    messageData: {in: body, type: object, required: false}
+  returns: OutboundSMSResult (messageId)
+  consequence: physical — sends a real SMS to a real handset
+search_evidence:
+- {url: 'https://api.replicant.ai/mcp', status: 404}
+- {url: 'https://www.replicant.com/llms.txt', status: 200, finding: no MCP server mentioned}
+- {url: 'https://api.github.com/orgs/replicant-ai/repos', status: 200, finding: 9 public repos, none MCP}
+- {url: 'https://registry.npmjs.org/-/v1/search?text=replicant', status: 200, finding: no first-party package}

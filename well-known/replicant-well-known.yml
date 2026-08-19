@@ -1,18 +1,40 @@
-generated: '2026-07-20'
-method: searched
-host: https://www.replicant.com
+generated: '2026-08-14'
+method: probed
+hosts:
+- https://www.replicant.com
+- https://replicant.ai
+- https://api.replicant.ai
+- https://status.replicant.ai
 notes: >-
-  No /.well-known/ discovery documents are published on the primary host. Every probed
-  path returned 404. A real /llms.txt (not a /.well-known/ path) IS published and is saved
-  verbatim at llms/replicant-llms.txt.
+  No /.well-known/ discovery document is served on ANY Replicant host. Every path probed on
+  2026-08-14 returned 404 — the marketing hosts answer with an HTML "Invalid .well-known
+  request" stub and the API host answers with its JSON {"error":"Not Found"} envelope. NO
+  WellKnown, SecurityTxt, or AgentCard pointer is emitted, because there is no document to point
+  at: this file records a verified ABSENCE, not a surface. A real /llms.txt IS published, but at
+  the site root rather than a /.well-known/ path, and is saved verbatim at
+  llms/replicant-llms.txt. The Replicant Outbound API is bearer-JWT only, which is consistent
+  with there being no OAuth/OIDC discovery document.
 documents:
-- path: /.well-known/security.txt
-  status: 404
-- path: /.well-known/openid-configuration
-  status: 404
-- path: /.well-known/oauth-authorization-server
-  status: 404
-- path: /.well-known/api-catalog
-  status: 404
-- path: /.well-known/ai-plugin.json
-  status: 404
+- {host: www.replicant.com, path: /.well-known/security.txt, status: 404}
+- {host: www.replicant.com, path: /.well-known/openid-configuration, status: 404}
+- {host: www.replicant.com, path: /.well-known/oauth-authorization-server, status: 404}
+- {host: www.replicant.com, path: /.well-known/api-catalog, status: 404}
+- {host: www.replicant.com, path: /.well-known/ai-plugin.json, status: 404}
+- {host: www.replicant.com, path: /.well-known/agent-card.json, status: 404}
+- {host: www.replicant.com, path: /.well-known/agent.json, status: 404}
+- {host: replicant.ai, path: /.well-known/security.txt, status: 404}
+- {host: replicant.ai, path: /.well-known/api-catalog, status: 404}
+- {host: replicant.ai, path: /.well-known/agent-card.json, status: 404}
+- {host: replicant.ai, path: /.well-known/agent.json, status: 404}
+- {host: api.replicant.ai, path: /.well-known/security.txt, status: 404}
+- {host: api.replicant.ai, path: /.well-known/openid-configuration, status: 404}
+- {host: api.replicant.ai, path: /.well-known/oauth-authorization-server, status: 404}
+- {host: api.replicant.ai, path: /.well-known/oauth-protected-resource, status: 404}
+- {host: api.replicant.ai, path: /.well-known/agent-card.json, status: 404}
+- {host: api.replicant.ai, path: /.well-known/agent.json, status: 404}
+- {host: status.replicant.ai, path: /.well-known/security.txt, status: 404}
+- {host: status.replicant.ai, path: /.well-known/api-catalog, status: 404}
+- {host: status.replicant.ai, path: /.well-known/agent-card.json, status: 404}
+- {host: status.replicant.ai, path: /.well-known/agent.json, status: 404}
+served_elsewhere:
+- {path: /llms.txt, host: www.replicant.com, status: 200, file: ../llms/replicant-llms.txt}

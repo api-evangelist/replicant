@@ -1,12 +1,16 @@
-generated: '2026-07-20'
+generated: '2026-08-14'
 method: searched
 source: https://www.replicant.com/safety-ai-security
 notes: >-
-  Replicant publishes no public OpenAPI, so protocol/interface conformance (OAuth2, OIDC,
-  RFC 9457, pagination) cannot be asserted from a spec. The claims below are the compliance
-  and security standards the provider publicly states on its Safety & AI Security page and
-  llms.txt.
+  Two kinds of claim are recorded here and they are kept apart. The compliance standards are what
+  Replicant publicly states on its Safety & AI Security page and in its llms.txt. The
+  protocol/interface standards are now DERIVABLE — the 2026-08-14 pass found a real, first-party
+  OpenAPI 3.0.0 (the Replicant Outbound API) at
+  https://docs.replicant.ai/campaigns/replicant-outbound-api-replicant.json, so interface
+  conformance is asserted from the spec and from a live probe rather than left unknown.
+
 standards:
+# --- compliance program (provider-published) ---
 - id: soc2-type2
   conforms: true
   evidence: SOC 2 Type 2 stated on safety-ai-security page and llms.txt
@@ -25,3 +29,47 @@ standards:
 - id: fedramp
   conforms: false
   evidence: not claimed
+
+# --- interface / protocol (derived from the harvested spec + live probe) ---
+- id: openapi-3
+  conforms: true
+  evidence: >-
+    openapi 3.0.0 document with paths and components, served by the provider at
+    docs.replicant.ai and describing servers[] https://api.replicant.ai/api/v2
+- id: http-bearer-rfc6750
+  conforms: true
+  evidence: components.securitySchemes.bearerAuth type http, scheme bearer, bearerFormat JWT
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 security scheme in the spec; no OAuth discovery document on any host
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404 on every host probed 2026-08-14
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    errors are a bare string (declared text/plain) or a single-field JSON object
+    {"error":"..."} observed live; no application/problem+json anywhere
+- id: rfc8594-sunset
+  conforms: false
+  evidence: no Sunset or Deprecation header and no deprecation policy published
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on every host; disclosure is via a web page
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    no AsyncAPI document published; the event surface is one orphaned CallStatus schema in the
+    OpenAPI (see asyncapi/replicant-outbound-call-status-webhooks.yml)
+- id: idempotency-key
+  conforms: false
+  evidence: no idempotency key header or parameter in the spec or docs; both operations are POSTs
+- id: pagination
+  conforms: false
+  evidence: not applicable — the published surface has no collection reads
+- id: mcp
+  conforms: false
+  evidence: no MCP server published; https://api.replicant.ai/mcp returned 404
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json returned 404 on every host

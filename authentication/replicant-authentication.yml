@@ -1,0 +1,13 @@
+generated: '2026-08-14'
+method: derived
+source: openapi/replicant-outbound-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/replicant-outbound-api-openapi.yml

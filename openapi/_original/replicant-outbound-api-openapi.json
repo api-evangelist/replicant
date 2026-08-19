@@ -1,0 +1,275 @@
+{
+  "openapi" : "3.0.0",
+  "servers" : [ {
+    "description" : "Replicant API",
+    "url" : "https://api.replicant.ai/api/v2"
+  } ],
+  "info" : {
+    "description" : "Allows placing outbound calls through Replicant, and being notified of call status",
+    "version" : "2.0.1",
+    "title" : "Replicant Outbound API",
+    "contact" : {
+      "email" : "sales@replicant.ai"
+    }
+  },
+  "paths" : {
+    "/campaigns/{campaignId}/calls" : {
+      "post" : {
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "tags" : [ "Replicant" ],
+        "summary" : "place an outbound call",
+        "operationId" : "placeCall",
+        "description" : "place an outbound call to the specified number based on campaign settings",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "campaignId",
+          "description" : "Campaign identifier",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "outbound call initiated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OutboundCallResult"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "campaignId not valid",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "campaignId not valid"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "authentication failure",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authentication failure"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "not authorized to make this request",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "not authorized to make this request"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OutboundCall"
+              }
+            }
+          },
+          "description" : "Outbound call parameters"
+        }
+      }
+    },
+    "/campaigns/{campaignId}/sms" : {
+      "post" : {
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ],
+        "tags" : [ "Replicant" ],
+        "summary" : "send an outbound SMS message",
+        "operationId" : "sendSMS",
+        "description" : "send an outbound SMS message to the specified number based on campaign settings",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "campaignId",
+          "description" : "Campaign identifier",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "outbound SMS initiated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OutboundSMSResult"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "campaignId not valid",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "campaignId not valid"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "authentication failure",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "authentication failure"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "not authorized to make this request",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "not authorized to make this request"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OutboundSMS"
+              }
+            }
+          },
+          "description" : "Outbound sms parameters"
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "CallStatus" : {
+        "type" : "object",
+        "properties" : {
+          "callId" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "campaignId" : {
+            "type" : "string",
+            "example" : "a190a1e0-5c54-4b01-90e6-a875934818f1"
+          },
+          "phone" : {
+            "type" : "string",
+            "format" : "phone",
+            "example" : "+14083654354"
+          },
+          "callerId" : {
+            "type" : "string",
+            "format" : "phone",
+            "example" : "+14083654354"
+          },
+          "status" : {
+            "type" : "string",
+            "example" : "gathering data"
+          },
+          "callCompleted" : {
+            "type" : "boolean"
+          },
+          "callFailed" : {
+            "type" : "boolean"
+          },
+          "callStartedAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "callDuration" : {
+            "type" : "number",
+            "example" : 221
+          },
+          "callSuccessAt" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "callResults" : {
+            "type" : "object"
+          }
+        }
+      },
+      "OutboundCall" : {
+        "type" : "object",
+        "required" : [ "phone", "callData" ],
+        "properties" : {
+          "phone" : {
+            "type" : "string",
+            "format" : "phone",
+            "example" : "+14083654354"
+          },
+          "callData" : {
+            "type" : "object"
+          }
+        }
+      },
+      "OutboundCallResult" : {
+        "type" : "object",
+        "properties" : {
+          "callId" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          }
+        }
+      },
+      "OutboundSMS" : {
+        "type" : "object",
+        "required" : [ "phone", "callData" ],
+        "properties" : {
+          "phone" : {
+            "type" : "string",
+            "format" : "phone",
+            "example" : "+14083654354"
+          },
+          "messageData" : {
+            "type" : "object"
+          }
+        }
+      },
+      "OutboundSMSResult" : {
+        "type" : "object",
+        "properties" : {
+          "messageId" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    }
+  }
+}

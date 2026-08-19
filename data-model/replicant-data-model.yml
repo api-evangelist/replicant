@@ -1,0 +1,109 @@
+generated: '2026-08-14'
+method: derived
+source: openapi/_original/replicant-outbound-api-openapi.json
+notes: >-
+  Entity graph derived from the components.schemas of the Replicant Outbound API. The published
+  surface is small — a campaign is addressed only as a path parameter and has no schema of its
+  own, so Campaign is recorded as a referenced-but-unmodelled entity. Identifier formats are
+  taken verbatim from the schema `format` and `example` values.
+
+entities:
+- name: Campaign
+  modelled: false
+  identifier:
+    field: campaignId
+    type: string
+    example: a190a1e0-5c54-4b01-90e6-a875934818f1
+    note: >-
+      UUID-shaped in every example, and the production host rejects a non-UUID with
+      400 "Invalid campaign UUID". Declared only as `type: string` in the spec.
+  description: >-
+    The configured outbound program (script, caller ID, channel settings) that a call or SMS is
+    placed against. Addressed as a path parameter on both operations; no read, list, create, or
+    update operation is published, so campaigns are provisioned outside this API.
+
+- name: OutboundCall
+  modelled: true
+  schema: '#/components/schemas/OutboundCall'
+  required: [phone, callData]
+  fields:
+  - {name: phone, type: string, format: phone, example: '+14083654354'}
+  - {name: callData, type: object, note: free-form caller-supplied context for the AI agent}
+  description: Request payload that initiates one outbound voice call within a campaign.
+
+- name: OutboundCallResult
+  modelled: true
+  schema: '#/components/schemas/OutboundCallResult'
+  fields:
+  - {name: callId, type: string, format: uuid, example: d290f1ee-6c54-4b01-90e6-d701748f0851}
+  description: 201 response of placeCall; carries the identifier the call is tracked by.
+
+- name: OutboundSMS
+  modelled: true
+  schema: '#/components/schemas/OutboundSMS'
+  required: [phone, callData]
+  fields:
+  - {name: phone, type: string, format: phone, example: '+14083654354'}
+  - {name: messageData, type: object, note: free-form caller-supplied context for the message}
+  description: >-
+    Request payload that initiates one outbound SMS within a campaign. NOTE a defect in the
+    published spec — `required` lists `callData`, but the schema defines `messageData` and no
+    `callData` property, so the required field does not exist on the object.
+
+- name: OutboundSMSResult
+  modelled: true
+  schema: '#/components/schemas/OutboundSMSResult'
+  fields:
+  - {name: messageId, type: string, format: uuid, example: d290f1ee-6c54-4b01-90e6-d701748f0851}
+  description: 201 response of sendSMS; carries the identifier the message is tracked by.
+
+- name: CallStatus
+  modelled: true
+  schema: '#/components/schemas/CallStatus'
+  orphaned: true
+  fields:
+  - {name: callId, type: string, format: uuid}
+  - {name: campaignId, type: string}
+  - {name: phone, type: string, format: phone}
+  - {name: callerId, type: string, format: phone}
+  - {name: status, type: string, example: gathering data}
+  - {name: callCompleted, type: boolean}
+  - {name: callFailed, type: boolean}
+  - {name: callStartedAt, type: string, format: date-time}
+  - {name: callDuration, type: number, example: 221}
+  - {name: callSuccessAt, type: string, format: date-time}
+  - {name: callResults, type: object}
+  description: >-
+    Call-outcome payload. Defined in components.schemas but referenced by NO path in the spec —
+    it is the notification body implied by the spec's own description ("being notified of call
+    status"). Captured as the webhook payload in
+    asyncapi/replicant-outbound-call-status-webhooks.yml.
+
+relationships:
+- from: OutboundCall
+  to: Campaign
+  kind: belongs_to
+  via: campaignId (path parameter)
+- from: OutboundSMS
+  to: Campaign
+  kind: belongs_to
+  via: campaignId (path parameter)
+- from: OutboundCallResult
+  to: OutboundCall
+  kind: has_one
+  via: callId
+- from: OutboundSMSResult
+  to: OutboundSMS
+  kind: has_one
+  via: messageId
+- from: CallStatus
+  to: OutboundCall
+  kind: belongs_to
+  via: callId
+- from: CallStatus
+  to: Campaign
+  kind: belongs_to
+  via: campaignId
+
+id_prefixes: []
+render: null

@@ -1,0 +1,80 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Replicant Outbound API
+  version: 1.0.0
+extends: openapi/_original/replicant-outbound-api-openapi.json
+generated: '2026-08-14'
+method: generated
+source: openapi/_original/replicant-outbound-api-openapi.json
+rationale: >-
+  The harvested spec (OpenAPI 3.0.0, v2.0.1) is small and correct in its happy path, but three
+  things it asserts do not match what the production host actually does, and one required field
+  does not exist. This overlay records API Evangelist's corrections and agent-facing annotations
+  WITHOUT mutating the original. Every action below is grounded in a live probe or in the spec's
+  own contents — nothing is invented. Apply with any Overlay 1.0.0 processor against
+  openapi/_original/replicant-outbound-api-openapi.json.
+actions:
+
+- target: $.info
+  description: Provenance and rating annotations.
+  update:
+    x-apievangelist-profile: https://apis.io/provider/replicant/
+    x-apievangelist-harvested: '2026-08-14'
+    x-apievangelist-source: https://docs.replicant.ai/campaigns/replicant-outbound-api-replicant.json
+
+- target: $.servers[0]
+  description: >-
+    Record that the declared server was verified live on 2026-08-14 — POST to
+    /api/v2/campaigns/{campaignId}/calls returns a JSON 400 from the production host.
+  update:
+    x-apievangelist-verified: '2026-08-14'
+    x-apievangelist-verified-status: 400
+
+- target: $.components.schemas.OutboundSMS
+  description: >-
+    SPEC DEFECT — `required` names `callData`, but the schema defines `messageData` and no
+    `callData` property. A generator following this spec emits an unsatisfiable requirement.
+  update:
+    x-apievangelist-defect: >-
+      required lists callData; the object defines messageData. The required list appears to be a
+      copy/paste from OutboundCall. Not corrected here — reported as observed.
+
+- target: $.components.schemas.CallStatus
+  description: >-
+    CallStatus is defined but referenced by no path. The spec's own info.description says the
+    API allows "being notified of call status", so this is the callback payload.
+  update:
+    x-apievangelist-role: webhook-payload
+    x-apievangelist-note: >-
+      Orphaned schema — the outbound call-status notification body. Captured in
+      asyncapi/replicant-outbound-call-status-webhooks.yml. The subscription mechanism is not
+      publicly documented.
+
+- target: $.paths['/campaigns/{campaignId}/calls'].post
+  description: Agent-facing consequence annotation — this operation dials a real person.
+  update:
+    x-apievangelist-consequence: physical
+    x-apievangelist-idempotent: false
+    x-apievangelist-note: >-
+      Non-idempotent. Replicant documents no idempotency key; a retry places a second call.
+
+- target: $.paths['/campaigns/{campaignId}/sms'].post
+  description: Agent-facing consequence annotation — this operation sends a real SMS.
+  update:
+    x-apievangelist-consequence: physical
+    x-apievangelist-idempotent: false
+    x-apievangelist-note: >-
+      Non-idempotent. Replicant documents no idempotency key; a retry sends a second message.
+
+- target: $.paths['/campaigns/{campaignId}/calls'].post.responses['400']
+  description: >-
+    OBSERVED DIVERGENCE — the spec declares text/plain, the production host returns
+    application/json {"error":"Invalid campaign UUID"}.
+  update:
+    x-apievangelist-observed:
+      media_type: application/json
+      body: '{"error":"Invalid campaign UUID"}'
+      fetched: '2026-08-14'
+      note: >-
+        The host validates the campaign UUID shape BEFORE authenticating, so a malformed
+        campaignId returns 400 to an unauthenticated caller.

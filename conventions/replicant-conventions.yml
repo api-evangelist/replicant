@@ -1,0 +1,110 @@
+generated: '2026-08-14'
+method: derived
+source: openapi/_original/replicant-outbound-api-openapi.json
+probe:
+  url: https://api.replicant.ai/api/v2/campaigns/test/calls
+  method: POST
+  http_status: 400
+  content_type: application/json; charset=utf-8
+  body: '{"error":"Invalid campaign UUID"}'
+  fetched: '2026-08-14'
+notes: >-
+  Replicant publishes exactly one machine-readable contract — the Replicant Outbound API
+  (OpenAPI 3.0.0, v2.0.1), served from the provider's own Swagger UI bucket at
+  https://docs.replicant.ai/campaigns/. The conventions below are derived from that spec and
+  from a live unauthenticated probe of the production host. Everything the provider does not
+  publish is recorded as unknown rather than guessed; Replicant is a sales-led enterprise
+  platform with no public developer portal, so most cross-cutting semantics are undocumented.
+
+authentication:
+  style: http-bearer
+  header: Authorization
+  format: "Bearer <JWT>"
+  scheme_name: bearerAuth
+  bearer_format: JWT
+  applied: 'per-operation — both operations declare security: [{bearerAuth: []}]'
+  source: openapi/_original/replicant-outbound-api-openapi.json#/components/securitySchemes/bearerAuth
+  see: authentication/replicant-authentication.yml
+
+versioning:
+  scheme: uri-path
+  current: v2
+  spec_version: 2.0.1
+  base: https://api.replicant.ai/api/v2
+  policy_published: false
+  see: lifecycle/replicant-lifecycle.yml
+
+media_types:
+  request: [application/json]
+  response_success: [application/json]
+  response_error_declared: [text/plain]
+  response_error_observed: [application/json]
+
+error_envelope:
+  declared_in_spec:
+    shape: bare string
+    media_type: text/plain
+    examples: ["campaignId not valid", "authentication failure", "not authorized to make this request"]
+  observed_live:
+    shape: json object
+    media_type: application/json
+    field: error
+    example: '{"error":"Invalid campaign UUID"}'
+  rfc9457: false
+  divergence: >-
+    The published spec declares text/plain string bodies for 400/401/403, but the production
+    host returns a JSON object with a single `error` string field. An agent coding to the spec
+    would parse the error body incorrectly. Recorded as observed, not corrected in the spec.
+  see: errors/replicant-problem-types.yml
+
+pagination:
+  supported: false
+  note: >-
+    The published surface exposes only two POST operations and no collection reads, so there is
+    no pagination contract to capture.
+
+idempotency:
+  supported: unknown
+  documented: false
+  note: >-
+    No idempotency key header, parameter, or retry-safety statement appears in the spec or in
+    any public Replicant documentation. placeCall and sendSMS are non-idempotent POSTs that
+    initiate real-world telephony actions; a retry is expected to place a second call or send a
+    second message. NO Idempotency pointer is emitted for this provider.
+
+field_expansion:
+  supported: false
+metadata:
+  supported: true
+  note: >-
+    Both request bodies carry a free-form object (`callData` on OutboundCall, `messageData` on
+    OutboundSMS) typed only as `type: object`, which is the caller-supplied context handed to
+    the AI agent for the conversation. The schema does not constrain its keys.
+
+request_tracing:
+  request_id_header: null
+  observed_response_headers:
+  - date
+  - content-type
+  - content-length
+  - etag
+  - x-powered-by
+  - strict-transport-security
+  - alt-svc
+  - via
+  note: >-
+    No correlation/request-id header was returned on the probed response. Callers correlate
+    asynchronously on the `callId` / `messageId` returned in the 201 body.
+
+rate_limit_signaling:
+  headers: []
+  documented: false
+  see: rate-limits/replicant-rate-limits.yml
+
+async_model:
+  style: fire-and-callback
+  note: >-
+    placeCall and sendSMS return immediately with an identifier; the outcome arrives later. The
+    spec's own description states the API allows "being notified of call status" and ships a
+    CallStatus payload schema for that notification.
+  see: asyncapi/replicant-outbound-call-status-webhooks.yml
