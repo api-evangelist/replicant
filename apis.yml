@@ -58,6 +58,14 @@ apis:
   humanURL: https://docs.replicant.ai/campaigns/
   baseURL: https://api.replicant.ai/api/v2
   tags:
+  - Outbound Calling
+  - Voice
+  - SMS
+  - Contact Center
+  - Conversational AI
+  - Telephony
+  - Campaigns
+  tags_raw:
   - outbound-calling
   - voice
   - sms
