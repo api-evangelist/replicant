@@ -46,36 +46,16 @@ tags:
 - Agentic AI
 - Conversation Intelligence
 apis:
-- name: Replicant Outbound API
-  description: >-
-    Places outbound AI voice calls and SMS messages through Replicant against a pre-configured
-    campaign, and notifies the caller of call status. Two POST operations — placeCall and
-    sendSMS — each taking an E.164 phone number plus a free-form data object that becomes the
-    context handed to the Replicant AI agent for the conversation, and each returning an
-    identifier (callId / messageId) the outcome is correlated on. Authentication is a JWT bearer
-    token; campaigns are provisioned outside the API. OpenAPI 3.0.0, version 2.0.1, published by
-    Replicant at docs.replicant.ai and verified live on api.replicant.ai on 2026-08-14.
+- aid: replicant:replicant-replicant-api
+  name: Replicant Replicant API
+  description: The Replicant API from Replicant — 2 operation(s) for replicant.
   humanURL: https://docs.replicant.ai/campaigns/
   baseURL: https://api.replicant.ai/api/v2
   tags:
-  - Outbound Calling
-  - Voice
-  - SMS
-  - Contact Center
-  - Conversational AI
-  - Telephony
-  - Campaigns
-  tags_raw:
-  - outbound-calling
-  - voice
-  - sms
-  - contact-center
-  - conversational-ai
-  - telephony
-  - campaigns
+  - Replicant
   properties:
   - type: OpenAPI
-    url: openapi/replicant-outbound-api-openapi.yml
+    url: openapi/replicant-replicant-api-openapi.yml
   - type: APIReference
     url: https://docs.replicant.ai/campaigns/
   - type: Documentation
