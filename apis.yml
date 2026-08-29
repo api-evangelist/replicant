@@ -13,6 +13,18 @@ description: >-
   from the provider's own Swagger UI at docs.replicant.ai and live on api.replicant.ai — which
   places outbound AI voice calls and SMS against a configured campaign and notifies the caller
   of call status.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
