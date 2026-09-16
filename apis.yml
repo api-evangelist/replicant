@@ -1,18 +1,15 @@
 aid: replicant
 name: Replicant
-description: >-
-  Replicant is an enterprise agentic customer service platform that automates high-volume
-  contact center conversations across voice, chat, and messaging, and analyzes 100% of
-  interactions for QA, compliance, and automation insights. Its two products — Conversation
-  Automation and Conversation Intelligence — replicate top-performing human agents using a
-  hybrid agentic-plus-deterministic architecture with human-in-the-loop escalation, and
-  integrate with existing CCaaS, CRM, telephony, and ticketing stacks. Replicant is
-  telephony-native, runs multi-region on Google Cloud, and is built for SOC 2, HIPAA, PCI,
-  and GDPR requirements. It is sales-led with no public developer portal, but it does publish
-  one machine-readable contract — the Replicant Outbound API (OpenAPI 3.0.0, v2.0.1), served
-  from the provider's own Swagger UI at docs.replicant.ai and live on api.replicant.ai — which
-  places outbound AI voice calls and SMS against a configured campaign and notifies the caller
-  of call status.
+description: Replicant is an enterprise agentic customer service platform that automates high-volume contact
+  center conversations across voice, chat, and messaging, and analyzes 100% of interactions for QA, compliance,
+  and automation insights. Its two products — Conversation Automation and Conversation Intelligence —
+  replicate top-performing human agents using a hybrid agentic-plus-deterministic architecture with human-in-the-loop
+  escalation, and integrate with existing CCaaS, CRM, telephony, and ticketing stacks. Replicant is telephony-native,
+  runs multi-region on Google Cloud, and is built for SOC 2, HIPAA, PCI, and GDPR requirements. It is
+  sales-led with no public developer portal, but it does publish one machine-readable contract — the Replicant
+  Outbound API (OpenAPI 3.0.0, v2.0.1), served from the provider's own Swagger UI at docs.replicant.ai
+  and live on api.replicant.ai — which places outbound AI voice calls and SMS against a configured campaign
+  and notifies the caller of call status.
 deliveryModel:
   model: saas
   open_source: false
@@ -47,7 +44,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-08-14'
+modified: '2026-09-16'
 tags:
 - Company
 - Contact Center
@@ -59,7 +56,7 @@ tags:
 - Conversation Intelligence
 apis:
 - aid: replicant:replicant-replicant-api
-  name: Replicant Replicant API
+  name: Replicant API
   description: The Replicant API from Replicant — 2 operation(s) for replicant.
   humanURL: https://docs.replicant.ai/campaigns/
   baseURL: https://api.replicant.ai/api/v2
