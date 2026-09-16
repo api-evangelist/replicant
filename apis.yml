@@ -110,7 +110,7 @@ common:
 - type: DomainSecurity
   url: security/replicant-domain-security.yml
 - type: OpenAPI
-  url: openapi/replicant-outbound-api-openapi.yml
+  url: openapi/_original/replicant-outbound-api-openapi.yml
 - type: Overlay
   url: overlays/replicant-outbound-api-overlay.yaml
 - type: Conventions
