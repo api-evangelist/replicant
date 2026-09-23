@@ -3,10 +3,10 @@ info:
   title: API Evangelist enhancements for the Replicant Outbound API
   version: 1.0.0
 extends: openapi/_original/replicant-outbound-api-openapi.json
-generated: '2026-08-14'
-method: generated
-source: openapi/_original/replicant-outbound-api-openapi.json
-rationale: >-
+x-generated: '2026-08-14'
+x-method: generated
+x-source: openapi/_original/replicant-outbound-api-openapi.json
+x-rationale: >-
   The harvested spec (OpenAPI 3.0.0, v2.0.1) is small and correct in its happy path, but three
   things it asserts do not match what the production host actually does, and one required field
   does not exist. This overlay records API Evangelist's corrections and agent-facing annotations

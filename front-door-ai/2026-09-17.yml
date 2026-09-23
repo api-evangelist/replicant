@@ -1,0 +1,31 @@
+# Front Door AI Index — replicant — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: replicant
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.replicant.com
+  final_host: www.replicant.com
+  ownership: own
+  owner: replicant
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 31
+  host_score: 31
+  density: 40.68
+  words: 762
+  tiers:
+    agentic: 9
+    core: 22
+    model: 0
+  ambiguous: 24
+  top_terms:
+    AI: 19
+    agent: 17
+    AI agent: 7
+    automation: 4
+    LLMs: 3
+    intelligence: 3
+    conversational AI: 2
