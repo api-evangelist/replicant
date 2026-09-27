@@ -113,29 +113,10 @@ paths:
         description: Outbound sms parameters
 components:
   schemas:
-    OutboundSMS:
-      type: object
-      required:
-      - phone
-      - callData
-      properties:
-        phone:
-          type: string
-          format: phone
-          example: '+14083654354'
-        messageData:
-          type: object
     OutboundSMSResult:
       type: object
       properties:
         messageId:
-          type: string
-          format: uuid
-          example: d290f1ee-6c54-4b01-90e6-d701748f0851
-    OutboundCallResult:
-      type: object
-      properties:
-        callId:
           type: string
           format: uuid
           example: d290f1ee-6c54-4b01-90e6-d701748f0851
@@ -150,6 +131,25 @@ components:
           format: phone
           example: '+14083654354'
         callData:
+          type: object
+    OutboundCallResult:
+      type: object
+      properties:
+        callId:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    OutboundSMS:
+      type: object
+      required:
+      - phone
+      - callData
+      properties:
+        phone:
+          type: string
+          format: phone
+          example: '+14083654354'
+        messageData:
           type: object
   securitySchemes:
     bearerAuth:
