@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.replicant.ai/campaigns/replicant-outbound-api-replicant.json",
+ "requested_url": "https://docs.replicant.ai/campaigns/replicant-outbound-api-replicant.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 7468,
+ "sha256": "b147528d5cf65b982aabd962695731293e0a3b4be02249247404f319a02e3edc",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
