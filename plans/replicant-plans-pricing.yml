@@ -66,3 +66,27 @@ guarantee:
 related:
 - {label: Request pricing, url: 'https://www.replicant.com/request-pricing'}
 - {label: ROI calculator, url: 'https://www.replicant.com/contact-center-automation/roi-calculator'}
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Quick Start
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Professional
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
